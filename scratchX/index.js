@@ -5,7 +5,7 @@
     // Status reporting code
     // Use this to report missing hardware, plugin or unsupported browser
     ext._getStatus = function() {
-        return {status: 0, msg: 'Device not connected'};
+        return {status: 2, msg: 'Ready'};
     };
 
     ext.get_temp = function(location, callback) {
@@ -17,6 +17,7 @@
                   // Got the data - parse it and return the temperature
                   temperature = weather_data['main']['temp'];
                   callback(temperature);
+                  return temperature;
               }
         });
     };
@@ -24,7 +25,7 @@
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
-            ['R', 'current temperature in city %s', 'get_temp', 'Boston, MA',],
+            ['R', 'current temperature in city %s', 'get_temp', 'Boston, MA'],
         ]
     };
 
