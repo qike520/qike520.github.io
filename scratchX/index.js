@@ -15,9 +15,9 @@
               dataType: 'jsonp',
               success: function( weather_data ) {
                   // Got the data - parse it and return the temperature
+                  console.log("test data");
                   temperature = weather_data['main']['temp'];
                   callback(temperature);
-                  return temperature;
               }
         });
     };
