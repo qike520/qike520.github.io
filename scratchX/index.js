@@ -5,7 +5,7 @@
     // Status reporting code
     // Use this to report missing hardware, plugin or unsupported browser
     ext._getStatus = function() {
-        return {status: 1, msg: 'Device not connected'};
+        return {status: 0, msg: 'Device not connected'};
     };
 
     ext.get_temp = function(location, callback) {
