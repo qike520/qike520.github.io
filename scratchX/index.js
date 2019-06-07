@@ -48,7 +48,7 @@
     // Block and block menu descriptions
     var descriptor={
         blocks:[
-            ['R','current information of the city %s','get_temp','Shanghai'],
+            ['R','current information of the city %s','get_info','Shanghai'],
         ]
     };
     //Register the extension
