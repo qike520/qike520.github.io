@@ -10,7 +10,7 @@
         
         //make an AJAX call to get info of the Open Weather Maps API
         //通过正则表达式判断该参数的类型来获取对应的天气数据
-          var url='api.openweathermap.org/data/2.5/weather?';
+          var url='https://samples.openweathermap.org/data/2.5/weather?';
         //city name
         //simulate this process to get weather data
           var pattern=/^[A-Z][a-z\s]+/;
