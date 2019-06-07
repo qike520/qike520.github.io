@@ -16,30 +16,22 @@
           var pattern=/^[A-Z][a-z\s]+/;
           if(pattern.test(location)){
               url+='q='+location;
-             // console.log("the "+location+"\'s temperature is 27.5℃");
+              console.log("the "+location+"\'s temperature is 27.5℃");
           }
 
         //city id
           pattern =/^[0-9]{7,7}$/;
           if(pattern.test(location)){
             url+='id='+location;
-           //  console.log("the "+location+"\'s temperature is 15℃");
+             console.log("the "+location+"\'s temperature is 15℃");
           }
         // geographic coordinates 
         pattern=/^[0-9]+,[0-9]+$/;
         if(pattern.test(location)){
           var coordinates=location.split(',');
           url+= 'lat='+coordinates[0]+'&lon='+coordinates[1];
-      //     console.log("the "+location+"\'s temperature is 125℃");
+           console.log("the "+location+"\'s temperature is 125℃");
         }
-         $.ajax({
-          url:url,
-          dataType:'jsonp',
-          success:function(weather_data){
-            console.log(weather_data['main']['temp']);
-           return true;
-          }
-        });
 
         return false;
 
