@@ -1,9 +1,9 @@
 (function(ext){
     //// Cleanup function when the extension is unloaded
-    ext.variable={flag:true};
+    var variable={flag:true};
     ext._shutdown=function(){};
     ext._getStatus=function(){
-      if(flag) return {status:2,msg:'connect the weather\'s api successfully'};
+      if(variable.flag) return {status:2,msg:'connect the weather\'s api successfully'};
       else  return {status:1,msg:'can\'t connect the weather\'s api!!'};
     }
     ext.get_info=function(location){
