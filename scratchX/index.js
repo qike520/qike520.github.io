@@ -1,54 +1,47 @@
-(function(ext) {
-    var alarm_went_off = false; // This becomes true after the alarm goes off
+(function(ext){
+    //// Cleanup function when the extension is unloaded
+    ext.variable={flag:false};
+    ext._shutdown=function(){};
+    ext._getStatus=function(){
+      if(flag) return {status:2,msg:'connect the weather\'s api successfully'};
+      else  {status:1,msg:'can\'t connect the weather\'s api!!'};
+    }
+    ext.get_info=function(location){
+        //make an AJAX call to get info of the Open Weather Maps API
+        //通过正则表达式判断该参数的类型来获取对应的天气数据
+          var url='api.openweathermap.org/data/2.5/weather?';
+        //city name
+          var pattern=/^[A-Z][a-z\s]+/;
+          if(pattern.test(location)){
+              url+='q='+location;
+          }
 
-    // Cleanup function when the extension is unloaded
-    ext._shutdown = function() {};
+        //city id
+          pattern =/^[0-9]{7,7}$/;
+          if(pattern.test(location)){
+            url+='id='+location;
+          }
+        // geographic coordinates 
+        pattern=/^[0-9]+,[0-9]+$/;
+        if(pattern.test(location)){
+          var coordinates=location.split(',');
+          url+= 'lat='+coordinates[0]+'&lon='+coordinates[1];
+        }
 
-    // Status reporting code
-    // Use this to report missing hardware, plugin or unsupported browser
-    ext._getStatus = function() {
-        return {status: 2, msg: 'Ready'};
+        $.ajax({
+          url:url,
+          dataType:'jsonp',
+          success:function(weather_data){
+            return weather_data['main']['temp'];
+          }
+        });
     };
-
-    ext.set_alarm = function(time) {
-       window.setTimeout(function() {
-           alarm_went_off = true;
-           console.log("qike");
-       }, time*1000);
+    // Block and block menu descriptions
+    var descriptor={
+        blocks:[
+            ['R','current information of the city %s','get_temp','Shanghai'],
+        ]
     };
-
-    ext.when_alarm = function() {
-       // Reset alarm_went_off if it is true, and return true
-       // otherwise, return false.
-       if (alarm_went_off === true) {
-            console.log("feihu");
-           alarm_went_off = false;
-           return true;
-       }
-
-       return false;
-    };
-
-  var descriptor = {
-    blocks: [
-        ['w', 'turn motor on for %n secs',             'motorOnFor', 1],
-        [' ', 'turn motor on',                         'allMotorsOn'],
-        [' ', 'turn motor off',                        'allMotorsOff'],
-        [' ', 'set motor power %n',                    'startMotorPower', 100],
-        [' ', 'set motor direction %m.motorDirection', 'setMotorDirection', 'this way'],
-        ['h', 'when distance %m.lessMore %n',          'whenDistance', '<', 20],
-        ['h', 'when tilt %m.eNe %n',                   'whenTilt', '=', 1],
-        ['r', 'distance',                              'getDistance'],
-        ['r', 'tilt',                                  'getTilt']
-    ],
-    menus: {
-        motorDirection: ['this way', 'that way', 'reverse'],
-        lessMore: ['<', '>'],
-        eNe: ['=','not =']
-    },
-    url: 'http://info.scratch.mit.edu/WeDo',
-    displayName: 'LEGO WeDo 1.0'
-};
-    // Register the extension
-    ScratchExtensions.register('Alarm extension', descriptor, ext);
-})({});
+    //Register the extension
+    ScratchExtensions.register('Weather Info',descriptor,ext);
+})({})
