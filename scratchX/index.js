@@ -13,6 +13,7 @@
     ext.set_alarm = function(time) {
        window.setTimeout(function() {
            alarm_went_off = true;
+           console.log("qike");
        }, time*1000);
     };
 
@@ -20,6 +21,7 @@
        // Reset alarm_went_off if it is true, and return true
        // otherwise, return false.
        if (alarm_went_off === true) {
+            console.log("feihu");
            alarm_went_off = false;
            return true;
        }
