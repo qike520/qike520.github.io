@@ -1,6 +1,6 @@
 (function(ext){
     //// Cleanup function when the extension is unloaded
-    ext.variable={flag:false};
+    ext.variable={flag:true};
     ext._shutdown=function(){};
     ext._getStatus=function(){
       if(flag) return {status:2,msg:'connect the weather\'s api successfully'};
@@ -32,6 +32,7 @@
           url:url,
           dataType:'jsonp',
           success:function(weather_data){
+            console.log(weather_data['main']['temp']);
             return weather_data['main']['temp'];
           }
         });
