@@ -4,7 +4,7 @@
     ext._shutdown=function(){};
     ext._getStatus=function(){
       if(flag) return {status:2,msg:'connect the weather\'s api successfully'};
-      else  {status:1,msg:'can\'t connect the weather\'s api!!'};
+      else  return {status:1,msg:'can\'t connect the weather\'s api!!'};
     }
     ext.get_info=function(location){
         //make an AJAX call to get info of the Open Weather Maps API
