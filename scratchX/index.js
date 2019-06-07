@@ -6,7 +6,7 @@
       if(variable.flag) return {status:2,msg:'connect the weather\'s api successfully'};
       else  return {status:1,msg:'can\'t connect the weather\'s api!!'};
     }
-    ext.get_info=function(location){
+    ext.get_info=function(location,callback){
         
         //make an AJAX call to get info of the Open Weather Maps API
         //通过正则表达式判断该参数的类型来获取对应的天气数据
